@@ -8,7 +8,7 @@ const BookAdd = (props) =>{
     const [formData, updateFormData]=React.useState({
         name:"",
         bookCategory:"",
-        author: "",
+        author: 1,
         availableCopies: 0
     })
 
@@ -27,7 +27,7 @@ const BookAdd = (props) =>{
         const availableCopies=formData.availableCopies;
 
         props.onAddBook(name,bookCategory,author,availableCopies);
-        history.push("/products")
+        history.push("/books")
     }
 
     return (
