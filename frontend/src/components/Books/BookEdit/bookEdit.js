@@ -1,8 +1,7 @@
 import React from "react";
 import {useHistory} from "react-router-dom";
 
-
-const BookAdd = (props) =>{
+const BookEdit = (props) => {
 
     const history=useHistory();
     const [formData, updateFormData]=React.useState({
@@ -26,13 +25,14 @@ const BookAdd = (props) =>{
         const author=formData.author;
         const availableCopies=formData.availableCopies;
 
-        props.onAddBook(name,bookCategory,author,availableCopies);
+        props.onEditBook(props.selectedBook.id,name,bookCategory,author,availableCopies);
         history.push("/books");
 
     }
 
     return (
         <div className="row mt-5">
+            <h1>{props.selectedBook}</h1>
             <div className="col-md-5">
                 <form onSubmit={onFormSubmit}>
                     <div className="form-group">
@@ -42,7 +42,7 @@ const BookAdd = (props) =>{
                                id="name"
                                name="name"
                                required
-                               placeholder="Enter book name"
+                               placeholder={props.selectedBook}
                                onChange={handleChange}
                         />
                     </div>
@@ -69,7 +69,7 @@ const BookAdd = (props) =>{
                                id="availableCopies"
                                name="availableCopies"
                                required
-                               placeholder="Enter available copies "
+                               placeholder={props.selectedBook}
                                onChange={handleChange}
                         />
                     </div>
@@ -81,4 +81,5 @@ const BookAdd = (props) =>{
     )
 
 }
-export default BookAdd;
+
+export default BookEdit;

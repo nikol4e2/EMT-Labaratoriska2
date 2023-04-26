@@ -8,7 +8,8 @@ import jdk.jfr.Category;
 
 import java.util.List;
 import java.util.Optional;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 public interface BookService {
 
     List<Book> findAll();
@@ -34,6 +35,8 @@ public interface BookService {
 
     void markAsTaken(Long id);
 
+
+    Page<Book> findAllWithPagination(Pageable pageable);
 
 
 

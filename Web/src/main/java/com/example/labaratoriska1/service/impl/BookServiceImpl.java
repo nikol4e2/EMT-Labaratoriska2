@@ -28,6 +28,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Page<Book> findAllWithPagination(Pageable pageable) {
+        return this.bookRepository.findAll(pageable);
+    }
+
+    @Override
     public List<Book> findAll() {
         return this.bookRepository.findAll();
     }
@@ -89,7 +94,7 @@ public class BookServiceImpl implements BookService {
         Author author=this.authorRepository.findById(bookDto.getAuthor())
                 .orElseThrow(()->new AuthorNotFound(bookDto.getAuthor()));
 
-        this.bookRepository.deleteByName(bookDto.getName());
+    //    this.bookRepository.deleteByName(bookDto.getName());
         Book book=new Book(bookDto.getName(), bookDto.getBookCategory(), author, bookDto.getAvailableCopies());
         this.bookRepository.save(book);
         return  Optional.of(book);

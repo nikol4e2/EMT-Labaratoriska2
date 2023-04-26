@@ -29,6 +29,10 @@ public class DataInitializer {
         Author author=this.authorService.create("Author1","surname",country);
         this.bookService.create("Book1", BookCategory.DRAMA,author,2);
         this.bookService.create("Book2",BookCategory.BIOGRAPHY,author,3);
+        this.bookService.create("Book3",BookCategory.NOVEL,author,6);
+        this.bookService.create("Book4",BookCategory.NOVEL,author,7);
+        this.bookService.create("Book5",BookCategory.NOVEL,author,5);
+        this.bookService.create("Book6",BookCategory.NOVEL,author,6);
 
     }
 }

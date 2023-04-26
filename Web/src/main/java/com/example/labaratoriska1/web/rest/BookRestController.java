@@ -14,9 +14,11 @@ import java.util.List;
 public class BookRestController {
 
     private final BookService bookService;
+    private final AuthorService authorService;
 
-    public BookRestController(BookService bookService) {
+    public BookRestController(BookService bookService,AuthorService authorService) {
         this.bookService = bookService;
+        this.authorService=authorService;
     }
 
     @GetMapping
@@ -30,6 +32,37 @@ public class BookRestController {
         return this.bookService.findById(id)
                 .map(book -> ResponseEntity.ok().body(book))
                 .orElseGet(()->ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/pagination")
+    public List<Book> findAllWithPagination(Pageable pageable){
+        return this.bookService.findAllWithPagination(pageable).getContent();
+    }
+
+    @GetMapping("/categories")
+    public List<BookCategory> allCategories(){
+        List<BookCategory> result=new ArrayList<>();
+        BookCategory bookCategory1=BookCategory.NOVEL;
+        BookCategory bookCategory2=BookCategory.THRILER;
+        BookCategory bookCategory3=BookCategory.HISTORY;
+        BookCategory bookCategory4=BookCategory.FANTASY;
+        BookCategory bookCategory5=BookCategory.BIOGRAPHY;
+        BookCategory bookCategory6=BookCategory.CLASSICS;
+        BookCategory bookCategory7=BookCategory.DRAMA;
+        result.add(bookCategory1);
+        result.add(bookCategory2);
+        result.add(bookCategory3);
+        result.add(bookCategory4);
+        result.add(bookCategory5);
+        result.add(bookCategory6);
+        result.add(bookCategory7);
+        return result;
+    }
+
+    @GetMapping("/authors")
+    public List<Author> findAllAuthors()
+    {
+        return this.authorService.findAll();
     }
 
     @PostMapping("/add")
@@ -48,6 +81,7 @@ public class BookRestController {
         return ResponseEntity.ok().build();
     }
 
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteById(@PathVariable Long id)
     {
@@ -63,5 +97,4 @@ public class BookRestController {
                 .map(book -> ResponseEntity.ok().body(book))
                 .orElseGet(()->ResponseEntity.badRequest().build());
     }
-
 }

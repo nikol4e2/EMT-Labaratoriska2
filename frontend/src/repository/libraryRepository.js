@@ -26,6 +26,18 @@ const LibraryService={
             "author": author,
             "availableCopies": availableCopies
         })
+    },
+    editBook: ( id, name,  bookCategory,  author,  availableCopies) => {
+        return axios.put(`/books/edit/${id}`,{
+            "name": name,
+            "bookCategory": bookCategory,
+            "author": author,
+            "availableCopies": availableCopies
+        });
+
+    },
+    getBook:(id) =>{
+        return axios.get(`/books/${id}`);
     }
 
 }
