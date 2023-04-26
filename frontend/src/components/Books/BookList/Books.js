@@ -1,5 +1,6 @@
 import React from "react";
 import BookTerm from "../BookTerm/bookTerm"
+import {Link} from "react-router-dom";
 
 const books=(props) =>{
     return (
@@ -18,11 +19,18 @@ const books=(props) =>{
                       <tbody>
                       {props.books.map((term)=>{
                           return(
-                              <BookTerm term={term}/>
+                              <BookTerm term={term} onDelete={props.onDelete} onTaken={props.onTaken}/>
                           )
                       })}
                       </tbody>
                   </table>
+              </div>
+              <div className="col mb-3">
+                  <div className="row">
+                      <div className="col-sm-12 col-md-12">
+                          <Link classname={"btn tbn-block btn-dark"} to={"/books/add"}>Add new book</Link>
+                      </div>
+                  </div>
               </div>
           </div>
       </div>
