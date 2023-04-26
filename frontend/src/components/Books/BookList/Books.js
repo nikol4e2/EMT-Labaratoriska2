@@ -1,4 +1,5 @@
 import React from "react";
+import BookTerm from "../BookTerm/bookTerm"
 
 const books=(props) =>{
     return (
@@ -17,12 +18,7 @@ const books=(props) =>{
                       <tbody>
                       {props.books.map((term)=>{
                           return(
-                              <tr>
-                                  <td>{term.name}</td>
-                                  <td>{term.bookCategory}</td>
-                                  <td>{term.author.name}</td>
-                                  <td>{term.availableCopies}</td>
-                              </tr>
+                              <BookTerm term={term}/>
                           )
                       })}
                       </tbody>

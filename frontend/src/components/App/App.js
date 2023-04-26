@@ -1,15 +1,19 @@
 
 import './App.css';
 import React, {Component} from "react";
-import Books from "../Books/Books"
+import Books from "../Books/BookList/Books"
 import LibraryService from "../../repository/libraryRepository";
+import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
+import Categories from "../Categories/Categories"
+import Header from "../Header/header"
 
 
 class App extends Component{
     constructor(props) {
         super(props);
         this.state={
-            books: []
+            books: [],
+            categories: []
         }
     }
 
@@ -23,15 +27,36 @@ class App extends Component{
         })
     }
 
+    loadCategories=() =>{
+        LibraryService.fetchCategories()
+            .then((data) =>
+            {
+                this.setState({
+                    categories:data.data
+                })
+            })
+    }
+
+
     componentDidMount() {
         this.loadBooks();
+        this.loadCategories();
     }
 
     render() {
         return(
-            <div>
-                <Books books={this.state.books}/>
-            </div>
+           <Router>
+               <Header/>
+               <main>
+                   <div className={"container"}>
+
+                       <Route path={"/books"} exact render={()=> <Books books={this.state.books}/>}/>
+                       <Route path={"/categories"} exact render={()=> <Categories categories={this.state.categories}/>}/>
+                        <Redirect to={"/books"}/>
+
+                   </div>
+               </main>
+           </Router>
         )
     }
 }
